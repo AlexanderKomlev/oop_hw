@@ -94,6 +94,26 @@ class Rewiever(Mentor):
         return res
 
 
+def avrg_course_hw_rate(students, course_name):
+    avrg_rate = 0
+
+    for index, student in enumerate(students):
+        if course_name in student.grades:
+            avrg_rate += ((sum(student.grades[course_name]) / len(student.grades[course_name]) -
+                          avrg_rate) / (index + 1))
+    return round(avrg_rate, 2)
+
+
+def avrg_lecturer_course_rate(lecturers, course_name):
+    avrg_rate = 0
+
+    for index, lecturer in enumerate(lecturers):
+        if course_name in lecturer.lectures_grades:
+            avrg_rate += ((sum(lecturer.lectures_grades[course_name]) / len(lecturer.lectures_grades[course_name]) -
+                          avrg_rate) / (index + 1))
+    return round(avrg_rate, 2)
+
+
 student_1 = Student('John', 'Daw', 'm')
 student_2 = Student('Jake', 'Morris', 'm')
 
@@ -165,3 +185,9 @@ print(rewiever_2)
 print()
 print(student_1 < student_2)
 print(lecturer_1 > lecturer_2)
+
+print()
+students = [student_1, student_2]
+print(avrg_course_hw_rate(students, 'Python'))
+lecturers = [lecturer_1, lecturer_2]
+print(avrg_lecturer_course_rate(lecturers, 'Python'))
